@@ -10,7 +10,7 @@
       <input type="password" ng-model="lm.password" ng-minlength="3">
    </label>
    <div class="padding">
-      <button  ng-click="validate()" ng-disabled="!lm.email || !lm.password" class="button button-block button-balanced">Sign In
+      <button  ng-click="lm.validate()" ng-disabled="!lm.email || !lm.password" class="button button-block button-balanced">Sign In
       </button>
    </div>
    <!--Sign up button-->

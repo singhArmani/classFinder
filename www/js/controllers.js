@@ -30,9 +30,25 @@ angular.module('starter.controllers', ['starter.services'])
 .controller('MainLMCtrl', [function( Loader, $ionicPlatform,
 $cordovaOauth,FBFactory, currentAuth, $state){
   console.log("I am MainCtrl");
+ var lm = this;
+  //creating a ref to our database
+  var ref = new Firebase("https://amanchat.firebaseio.com/");
 
-//  $state.go('main');
 
+//do some validation here using simple firebase API(without $firebaseAuth)
+  lm.validate=function(){
+
+      ref.authWithPassword({
+        email: lm.email,
+        password:lm.password
+         }, function(error, authData) {
+           if (error) {
+             console.log("Login Failed!", error);
+           } else {
+   console.log("Authenticated successfully with payload:", authData);
+   }
+     });
+  }
 }])
 
 //Register Controller
