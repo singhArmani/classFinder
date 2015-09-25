@@ -27,8 +27,7 @@ angular.module('starter.controllers', ['starter.services'])
   };
 })
 
-.controller('MainLMCtrl', [function( Loader, $ionicPlatform,
-$cordovaOauth,FBFactory, currentAuth, $state){
+.controller('MainLMCtrl', ['$state', function($state){
   console.log("I am MainCtrl");
  var lm = this;
   //creating a ref to our database
@@ -46,6 +45,7 @@ $cordovaOauth,FBFactory, currentAuth, $state){
              console.log("Login Failed!", error);
            } else {
    console.log("Authenticated successfully with payload:", authData);
+       $state.go('tab.dash');
    }
      });
   }

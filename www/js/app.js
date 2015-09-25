@@ -92,13 +92,15 @@ $ionicConfigProvider.navBar.alignTitle('center');
         templateUrl: 'templates/tab-dash.html',
         controller: 'DashCtrl'
       }
-    },
+    }
+    /*,
     resolve:{
       'currentAuth':['FBFactory', 'Loader', function(FBFactory,Loader){
         Loader.show('Checking Auth..');
         return FBFactory.auth().$requireAuth();
       }]
     }
+    */
   })
 
   .state('tab.chats', {
@@ -109,13 +111,16 @@ $ionicConfigProvider.navBar.alignTitle('center');
           templateUrl: 'templates/tab-chats.html',
           controller: 'ChatsCtrl'
         }
-      },
+      }
+      /*  uncomment this to get authentication to show this tab content
+      ,
       resolve:{
         'currentAuth':['FBFactory', 'Loader', function(FBFactory,Loader){
           Loader.show('Checking Auth..');
           return FBFactory.auth().$requireAuth();
         }]
       }
+      */
     })
     .state('tab.chat-detail', {
       url: '/chats/:chatId',
@@ -134,13 +139,15 @@ $ionicConfigProvider.navBar.alignTitle('center');
         templateUrl: 'templates/tab-account.html',
         controller: 'AccountCtrl'
       }
-    },
+    }
+    /*
+    ,
     resolve:{
       'currentAuth':['FBFactory', 'Loader', function(FBFactory,Loader){
         Loader.show('Checking Auth..');
         return FBFactory.auth().$requireAuth();
       }]
-    }
+    } */
   });
 
   // if none of the above states are matched, use this as the fallback
