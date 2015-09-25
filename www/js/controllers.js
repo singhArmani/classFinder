@@ -66,34 +66,3 @@ function(Auth,$firebaseArray){
    };
 
 }])
-
-
-//login Controller
-.controller('LoginCtrl',function($scope,$state,$firebaseObject,$firebaseAuth){
-
-  //creating a ref to our database
-  var ref = new Firebase("https://amanchat.firebaseio.com/");
-
-  //download the data into a local object
-    var $syncObject = $firebaseObject(ref);
-
-  //sync the object with a three-way data-binding
-  $syncObject.$bindTo($scope,"data");
-
-//do some validation here using simple firebase API(without $firebaseAuth)
-  $scope.validate=function(){
-
-      ref.authWithPassword({
-        email: $scope.email,
-        password:$scope.password
-         }, function(error, authData) {
-           if (error) {
-             console.log("Login Failed!", error);
-           } else {
-   console.log("Authenticated successfully with payload:", authData);
-   //allow to go to app state
-       $state.go('app');
-   }
-     });
-  }
-})
