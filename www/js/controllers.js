@@ -30,42 +30,43 @@ angular.module('starter.controllers', ['starter.services'])
 .controller('MainCtrl', [function($scope, Loader, $ionicPlatform,
 $cordovaOauth,FBFactory, currentAuth, $state){
   console.log("I am MainCtrl");
+
 //  $state.go('main');
 
 }])
 
 //Register Controller
-.controller('RegisterCtrl', ["$scope","Auth","$firebaseArray",
-function($scope,Auth,$firebaseArray){
-  console.log("I am RegisterCtrl");
-   $scope.createUser = function(){
-     $scope.message = null;
-     $scope.error= null;
-     $scope.reg="aman";
-     console.log("this is :"+$scope.reg);
+.controller('RegisterVMCtrl', ["Auth","$firebaseArray",
+function(Auth,$firebaseArray){
+  var vm = this;
+   vm.createUser = function(){
+     vm.message = null;
+     vm.error= null;
     // Auth.$createUser().then().catch();
     Auth.$createUser({
-        email: $scope.email,
-        password: $scope.password
+        email: vm.email,
+        password: vm.password
       }).then(function(userData) {
-        $scope.message = "User created with uid: " + userData.uid;
+        vm.message = "User created with uid: " + userData.uid;
          //console.log($scope.email)
         //creating a ref to our database
         var ref = new Firebase("https://amanchat.firebaseio.com/");
 
         var usersRef = ref.child("users");
-        $scope.users = $firebaseArray(usersRef);
+        vm.users = $firebaseArray(usersRef);
 
-        $scope.users.$add({
-             email:$scope.email,
+        vm.users.$add({
+             email:vm.email,
              full_name:"",
              phone_number:""
         });
       }).catch(function(error) {
-        $scope.error = error;
+      vm.error = error;
       });
    };
+
 }])
+
 
 //login Controller
 .controller('LoginCtrl',function($scope,$state,$firebaseObject,$firebaseAuth){

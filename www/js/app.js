@@ -46,7 +46,7 @@ $ionicConfigProvider.navBar.alignTitle('center');
 
   //setup the main page
   .state('main',{
-    url:'/',
+    url:'/main',
     templateUrl:'templates/main.html',
     controller:'MainCtrl',
     cache: false
@@ -62,7 +62,8 @@ $ionicConfigProvider.navBar.alignTitle('center');
   .state('register',{
         url:'/register',
         templateUrl:'templates/register.html',
-        controller:'RegisterCtrl'
+        controller:'RegisterVMCtrl as vm',
+        cache:false
       })
 
 /*
@@ -143,6 +144,6 @@ $ionicConfigProvider.navBar.alignTitle('center');
   });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/');
+  $urlRouterProvider.otherwise('/main');
 
 });
