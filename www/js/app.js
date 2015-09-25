@@ -48,7 +48,7 @@ $ionicConfigProvider.navBar.alignTitle('center');
   .state('main',{
     url:'/main',
     templateUrl:'templates/main.html',
-    controller:'MainCtrl',
+    controller:'MainLMCtrl as lm',
     cache: false
   /*    resolve:{
       'currentAuth':['FBFactory', 'Loader', function(FBFactory,Loader){

@@ -27,7 +27,7 @@ angular.module('starter.controllers', ['starter.services'])
   };
 })
 
-.controller('MainCtrl', [function($scope, Loader, $ionicPlatform,
+.controller('MainLMCtrl', [function( Loader, $ionicPlatform,
 $cordovaOauth,FBFactory, currentAuth, $state){
   console.log("I am MainCtrl");
 

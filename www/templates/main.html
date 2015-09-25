@@ -1,16 +1,16 @@
-<ion-view view-title="CLASS FINDER" >
+<ion-view view-title="LOGIN" >
   <ion-content class="padding">
   <div class ="list" >
    <label class="item item-input">
       <span class="input-label">Email</span>
-      <input type="email" ng-model="email">
+      <input type="email" ng-model="lm.email">
    </label>
    <label class="item item-input">
       <span class="input-label">Password</span>
-      <input type="password" ng-model="password" ng-minlength="3">
+      <input type="password" ng-model="lm.password" ng-minlength="3">
    </label>
    <div class="padding">
-      <button  ng-click="validate()" ng-disabled="!email || !password" class="button button-block button-balanced">Sign In
+      <button  ng-click="validate()" ng-disabled="!lm.email || !lm.password" class="button button-block button-balanced">Sign In
       </button>
    </div>
    <!--Sign up button-->
@@ -18,8 +18,7 @@
      <button ui-sref="register" class="button button-block button-calm">Sign Up
     </div>
 
-    <p ng-if="message">Message: <strong>{{ message }}</strong></p>
-   <p ng-if="error">Error: <strong>{{ error }}</strong></p>
+
 </div>
 </ion-content>
 </ion-view>
