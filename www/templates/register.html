@@ -1,0 +1,23 @@
+<ion-view>
+  <ion-content>
+<div class ="list">
+   <label class="item item-input">
+      <span class="input-label">Email</span>
+      <input type="email" ng-model="email">
+   </label>
+   <label class="item item-input">
+      <span class="input-label">Password</span>
+      <input type="password" ng-model="password" ng-minlength="6">
+   </label>
+   <div class="padding">
+      <button  ng-click="createUser()" ng-disabled="!email || !password" class="button button-block button-assertive">Sign Up
+      </button>
+   </div>
+   <div class="padding">
+     <button ui-sref="main" class="button button-block button-royal">Go To Login
+    </div>
+   <p ng-if="message">Message: <strong>{{ message }}</strong></p>
+  <p ng-if="error">Error: <strong>{{ error }}</strong></p>
+</div>
+</ion-content>
+</ion-view>
