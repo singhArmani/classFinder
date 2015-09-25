@@ -34,7 +34,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
 .config(function($stateProvider, $urlRouterProvider,$ionicConfigProvider) {
 //we will use $ionicConfigProvider to set up a few defaults.
-$ionicConfigProvider.backButton.previousTitleText(false);
+$ionicConfigProvider.backButton.previousTitleText(true);
 $ionicConfigProvider.views.transition('platform');
 $ionicConfigProvider.navBar.alignTitle('center');
 
