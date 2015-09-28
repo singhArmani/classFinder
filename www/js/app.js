@@ -31,6 +31,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     });  */
   });
 })
+//you can attach multiple run methods to a module
+.run(['$rootScope', 'AuthFactory', function($rootScope,AuthFactory){
+    //creating a property on $rootScope object
+      $rootScope.isAuthenticated == AuthFactory.isLoggedIn();//using AuthFactory methods to find the status
+      
+}])
 
 .config(function($stateProvider, $urlRouterProvider,$ionicConfigProvider) {
 //we will use $ionicConfigProvider to set up a few defaults.
