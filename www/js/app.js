@@ -90,7 +90,7 @@ $httpProvider.interceptors.push('TokenInterceptor');//adding an interceptor to o
     }
   })
 
-  .state('tab.chats', {
+/*  .state('tab.chats', {
       url: '/chats',
       cache:false,
       views: {
@@ -100,6 +100,18 @@ $httpProvider.interceptors.push('TokenInterceptor');//adding an interceptor to o
         }
       }
     })
+    */
+    .state('tab.chats', {
+          url: '/chats',
+          cache:false,
+          views: {
+            'tab-chats': {
+              templateUrl: 'templates/tab-chats.html',
+              controller: 'ClassCtrl'
+            }
+          }
+        })
+
     .state('tab.chat-detail', {
       url: '/chats/:chatId',
       views: {

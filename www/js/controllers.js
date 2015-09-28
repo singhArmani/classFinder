@@ -2,7 +2,7 @@ angular.module('starter.controllers', ['starter.services'])
 
 .controller('DashCtrl', function($scope) {})
 
-.controller('ChatsCtrl', function($scope, Chats) {
+/*.controller('ChatsCtrl', function($scope, Chats) {
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
   // To listen for when this page is active (for example, to refresh data),
@@ -15,6 +15,15 @@ angular.module('starter.controllers', ['starter.services'])
   $scope.remove = function(chat) {
     Chats.remove(chat);
   };
+
+
+})
+*/
+
+//classController
+.controller('ClassCtrl', function($scope, Class){
+  $scope.classes = Class.getClasses(); //asking factory to provide class detail here
+  console.log($scope.classes); 
 })
 
 .controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {

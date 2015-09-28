@@ -1,3 +1,4 @@
+<!--
 <ion-view view-title="Chats">
   <ion-content>
     <ion-list>
@@ -10,6 +11,19 @@
         <ion-option-button class="button-assertive" ng-click="remove(chat)">
           Delete
         </ion-option-button>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>
+-->
+<ion-view view-title="Classes">
+  <ion-content>
+    <ion-list>
+      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="class in classes" type="item-text-wrap">
+        <img ng-src="{{class.image}}">
+        <h2>{{class.price}}</h2>
+        <p>{{class.title}}</p>
+        <i class="icon ion-chevron-right icon-accessory"></i>
       </ion-item>
     </ion-list>
   </ion-content>

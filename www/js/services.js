@@ -7,6 +7,7 @@ angular.module('starter.services', ['firebase'])
   }
 ])
 
+/*
 .factory('Chats', function() {
   // Might use a resource here that returns a JSON array
 
@@ -55,6 +56,21 @@ angular.module('starter.services', ['firebase'])
     }
   };
 })
+*/
+
+//class factory
+.factory('Class',['$firebaseObject',function($firebaseObject){
+    var ref = new Firebase("https://amanchat.firebaseio.com/class");
+
+//downloading server data into local sync object via $firebaseObject
+    var classData =$firebaseObject(ref);
+
+    var factory ={};//creating a factory empty object.
+    factory.getClasses= function(){return classData;}; //adding a method to the factory object.
+    return factory;//returning the factory object
+
+}])
+
 //Ionic loading factory
 .factory('Loader', ['$ionicLoading', '$timeout',
       function($ionicLoading, $timeout) {
