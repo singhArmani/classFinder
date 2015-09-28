@@ -35,14 +35,18 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 .run(['$rootScope', 'AuthFactory', function($rootScope,AuthFactory){
     //creating a property on $rootScope object
       $rootScope.isAuthenticated == AuthFactory.isLoggedIn();//using AuthFactory methods to find the status
-      
+
 }])
 
-.config(function($stateProvider, $urlRouterProvider,$ionicConfigProvider) {
+.config(function($stateProvider, $urlRouterProvider,$httpProvider,$ionicConfigProvider) {
 //we will use $ionicConfigProvider to set up a few defaults.
 $ionicConfigProvider.backButton.previousTitleText(true);
 $ionicConfigProvider.views.transition('platform');
 $ionicConfigProvider.navBar.alignTitle('center');
+
+//setup the token interceptor
+$httpProvider.interceptors.push('TokenInterceptor');//adding an interceptor to our array
+
 
   // Ionic uses AngularUI Router which uses the concept of states
   // Learn more here: https://github.com/angular-ui/ui-router
@@ -56,12 +60,6 @@ $ionicConfigProvider.navBar.alignTitle('center');
     templateUrl:'templates/main.html',
     controller:'MainLMCtrl as lm',
     cache: false
-  /*    resolve:{
-      'currentAuth':['FBFactory', 'Loader', function(FBFactory,Loader){
-        Loader.show('Checking Auth..');
-        return FBFactory.auth().$waitForAuth();
-      }]
-    }*/
   })
 
   //register state
@@ -71,15 +69,6 @@ $ionicConfigProvider.navBar.alignTitle('center');
         controller:'RegisterVMCtrl as vm',
         cache:false
       })
-
-/*
-    //login state
-    .state('login',{
-    url:'/login',
-    templateUrl:'templates/login.html',
-    controller:'LoginCtrl'
-  })
-  */
 
   // setup an abstract state for the tabs directive
     .state('tab', {
@@ -99,14 +88,6 @@ $ionicConfigProvider.navBar.alignTitle('center');
         controller: 'DashCtrl'
       }
     }
-    /*,
-    resolve:{
-      'currentAuth':['FBFactory', 'Loader', function(FBFactory,Loader){
-        Loader.show('Checking Auth..');
-        return FBFactory.auth().$requireAuth();
-      }]
-    }
-    */
   })
 
   .state('tab.chats', {
@@ -118,15 +99,6 @@ $ionicConfigProvider.navBar.alignTitle('center');
           controller: 'ChatsCtrl'
         }
       }
-      /*  uncomment this to get authentication to show this tab content
-      ,
-      resolve:{
-        'currentAuth':['FBFactory', 'Loader', function(FBFactory,Loader){
-          Loader.show('Checking Auth..');
-          return FBFactory.auth().$requireAuth();
-        }]
-      }
-      */
     })
     .state('tab.chat-detail', {
       url: '/chats/:chatId',
@@ -146,14 +118,6 @@ $ionicConfigProvider.navBar.alignTitle('center');
         controller: 'AccountCtrl'
       }
     }
-    /*
-    ,
-    resolve:{
-      'currentAuth':['FBFactory', 'Loader', function(FBFactory,Loader){
-        Loader.show('Checking Auth..');
-        return FBFactory.auth().$requireAuth();
-      }]
-    } */
   });
 
   // if none of the above states are matched, use this as the fallback

@@ -55,28 +55,30 @@ angular.module('starter.services', ['firebase'])
     }
   };
 })
-//loading factory
+//Ionic loading factory
 .factory('Loader', ['$ionicLoading', '$timeout',
       function($ionicLoading, $timeout) {
-      return {
-              show: function(text) {
-            //console.log('show', text);
+
+        var LOADERAPI = {
+          showLoading: function(text){
+            text = text || 'Loading...';
             $ionicLoading.show({
-                  content: (text || 'Loading...'),
-                noBackdrop: true
-                  });
-                },
-                hide: function() {
-                    //console.log('hide');
-                    $ionicLoading.hide();
-                  },
-                  toggle: function(text, timeout) {
-                    var that = this;
-                    that.show(text);
-                    $timeout(function() {
-                      that.hide();
-                    }, timeout || 3000);
-                  }
-                };
-              }
+              template:text;
+            });
+          },
+
+          hideLoading:function(){
+            $ionicLoading.hide();
+          },
+
+          toggleLoadingWithMessage: function(text, timeout){
+            $rootScope.showLoading(text);
+
+            $timeout(function({
+              $rootScope.hideLoading();
+            },timeout || 3000);
+          }
+        };
+        return LOADERAPI;
+      }
 ])
