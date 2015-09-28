@@ -63,7 +63,7 @@ angular.module('starter.services', ['firebase'])
           showLoading: function(text){
             text = text || 'Loading...';
             $ionicLoading.show({
-              template:text;
+              template:text
             });
           },
 
@@ -74,7 +74,7 @@ angular.module('starter.services', ['firebase'])
           toggleLoadingWithMessage: function(text, timeout){
             $rootScope.showLoading(text);
 
-            $timeout(function({
+            $timeout(function(){
               $rootScope.hideLoading();
             },timeout || 3000);
           }
@@ -110,7 +110,7 @@ angular.module('starter.services', ['firebase'])
        var items = Object.keys(localStorage);//we use Object.keys method to convert the localStorage(array-like)object into an array.
 
        //iterating
-       for(var i=0, i<items.length;i++){
+       for(var i=0; i<items.length;i++){
          if(items[i]!=='user' || items[i]!='token'){
             classes.push(JSON.parse(localStorage[items[i]]));
          }
@@ -142,7 +142,7 @@ token data in local storage using the LSFactory API.
      //setting user into LocalStorage using LSFactory set method
      setUser:function(user){
        return LSFactory.set(userKey,user);
-     }
+     },
 
      getUser: function(){
        return LSFactory.get(userKey);
@@ -150,7 +150,7 @@ token data in local storage using the LSFactory API.
 
      setToken: function(token){
          return LSFactory.set(tokenKey,token);
-     }
+     },
 
      getToken:function(){
         return LSFactory.get(tokenKey);
@@ -166,7 +166,7 @@ token data in local storage using the LSFactory API.
 
 //TokenInterceptor factory
 //to manipulate the http request and response and changing the config object header
-.factory('TokenInterceptor', [$q,'AuthFactory', function($q,AuthFactory){
+.factory('TokenInterceptor', ['$q','AuthFactory', function($q,AuthFactory){
     var TokenInterceptorAPI = {
 
       request:function(config){
