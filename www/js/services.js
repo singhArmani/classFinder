@@ -59,14 +59,28 @@ angular.module('starter.services', ['firebase'])
 */
 
 //class factory
-.factory('Class',['$firebaseObject',function($firebaseObject){
+.factory('Class',['$firebaseArray',function($firebaseArray){
     var ref = new Firebase("https://amanchat.firebaseio.com/class");
 
-//downloading server data into local sync object via $firebaseObject
-    var classData =$firebaseObject(ref);
+//downloading server data into local sync object via $firebaseArray;
+//we can use $firebaseObject instead of $firebaseArray.
+    var classData =$firebaseArray(ref);
 
-    var factory ={};//creating a factory empty object.
-    factory.getClasses= function(){return classData;}; //adding a method to the factory object.
+    var factory = {
+         getClasses: function(){
+           return classData;
+         },
+         getById: function(classId){
+
+           for(var i=0;i<classData.length;i++){
+             if(classData[i].id===parseInt(classId)){
+               return classData[i];
+             }
+           }
+            return null;
+         }
+    };
+
     return factory;//returning the factory object
 
 }])

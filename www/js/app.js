@@ -112,12 +112,22 @@ $httpProvider.interceptors.push('TokenInterceptor');//adding an interceptor to o
           }
         })
 
+    // .state('tab.chat-detail', {
+    //   url: '/chats/:chatId',
+    //   views: {
+    //     'tab-chats': {
+    //       templateUrl: 'templates/chat-detail.html',
+    //       controller: 'ChatDetailCtrl'
+    //     }
+    //   }
+    // })
+
     .state('tab.chat-detail', {
-      url: '/chats/:chatId',
+      url: '/chats/:classId',
       views: {
         'tab-chats': {
           templateUrl: 'templates/chat-detail.html',
-          controller: 'ChatDetailCtrl'
+          controller: 'ClassDetailCtrl'
         }
       }
     })

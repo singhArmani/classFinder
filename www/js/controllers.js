@@ -23,12 +23,15 @@ angular.module('starter.controllers', ['starter.services'])
 //classController
 .controller('ClassCtrl', function($scope, Class){
   $scope.classes = Class.getClasses(); //asking factory to provide class detail here
-  console.log($scope.classes); 
+  console.log("the lenth of array is "+$scope.classes.length);
 })
 
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
-  $scope.chat = Chats.get($stateParams.chatId);
+.controller('ClassDetailCtrl', function($scope, $stateParams, Class) {
+  console.log($stateParams.classId);
+  $scope.classDetail = Class.getById($stateParams.classId);
+
 })
+
 
 .controller('AccountCtrl', function($scope) {
   $scope.settings = {
