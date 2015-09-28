@@ -97,7 +97,7 @@ angular.module('starter.services', ['firebase'])
         return JSON.parse(localStorage.getItem(key));
      },
 
-     set: function(key){
+     set: function(key,data){
        return localStorage.setItem(key,JSON.stringify(data));
      },
 
@@ -116,7 +116,43 @@ angular.module('starter.services', ['firebase'])
          }
        }
        return classes;
-     }     
+     }
   };
   return LSAPI;
+}])
+
+//Authentication factory using 'LSFactory' as dependency
+.factory('AuthFactory',['LSFactory', function(LSFactory){
+
+  var userKey = 'user';
+  var tokenKey = 'token';
+
+  var AuthAPI = {
+
+     isLoggedIn: function(){
+       return this.getUser()===null?false:true;
+     },
+     //setting user into LocalStorage using LSFactory set method
+     setUser:function(user){
+       return LSFactory.set(userKey,user);
+     }
+
+     getUser: function(){
+       return LSFactory.get(userKey);
+     },
+
+     setToken: function(token){
+         return LSFactory.set(tokenKey,token);
+     }
+
+     getToken:function(){
+        return LSFactory.get(tokenKey);
+     },
+
+     deleteAuth: function(){
+       LSFactory.delete(userKey);
+       LSFactory.delete(tokenKey);
+     }
+  };
+  return AuthAPI;
 }])
