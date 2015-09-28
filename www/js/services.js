@@ -82,3 +82,41 @@ angular.module('starter.services', ['firebase'])
         return LOADERAPI;
       }
 ])
+
+//localStorage factory
+//this is to get more efficiency and battery saving
+.factory('LSFactory', [function(){
+
+  var LSAPI = {
+
+     clear: function(){
+        return localStorage.clear();
+     },
+
+     get: function(key){
+        return JSON.parse(localStorage.getItem(key));
+     },
+
+     set: function(key){
+       return localStorage.setItem(key,JSON.stringify(data));
+     },
+
+     delete: function(key){
+       return localStorage.removeItem(key);
+     },
+
+     getAll: function(){
+       var classes = [];
+       var items = Object.keys(localStorage);//we use Object.keys method to convert the localStorage(array-like)object into an array.
+
+       //iterating
+       for(var i=0, i<items.length;i++){
+         if(items[i]!=='user' || items[i]!='token'){
+            classes.push(JSON.parse(localStorage[items[i]]));
+         }
+       }
+       return classes;
+     }     
+  };
+  return LSAPI;
+}])
