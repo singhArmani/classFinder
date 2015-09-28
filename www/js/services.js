@@ -121,7 +121,14 @@ angular.module('starter.services', ['firebase'])
   return LSAPI;
 }])
 
-//Authentication factory using 'LSFactory' as dependency
+/*
+Authentication factory using 'LSFactory' as dependency
+This factory is dependent on LSFactory and manages the user authentication data.
+As mentioned earlier, when the user does a login or register, the server will send an
+access token along with a user object. These wrapper methods save the user data and
+token data in local storage using the LSFactory API.
+*/
+
 .factory('AuthFactory',['LSFactory', function(LSFactory){
 
   var userKey = 'user';
@@ -155,4 +162,29 @@ angular.module('starter.services', ['firebase'])
      }
   };
   return AuthAPI;
+}])
+
+//TokenInterceptor factory
+//to manipulate the http request and response and changing the config object header
+.factory('TokenInterceptor', [$q,'AuthFactory', function($q,AuthFactory){
+    var TokenInterceptorAPI = {
+
+      request:function(config){
+        config.headers = config.headers || {};
+            var token = AuthFactory.getToken();
+            var user = AuthFactory.getUser();
+
+            if (token && user) {
+              config.headers['X-Access-Token'] = token.token;
+              config.headers['X-Key'] = user.email;
+              config.headers['Content-Type'] ="application/json";
+            }
+        return config || $q.when(config);
+      },
+
+      response: function(response){
+        return response || $q.when(response);
+      }
+    };
+    return TokenInterceptorAPI;
 }])
