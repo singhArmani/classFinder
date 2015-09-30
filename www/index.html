@@ -24,7 +24,7 @@
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
 
-    
+
     <!-- your app's js -->
     <script src="js/app.js"></script>
     <script src="js/controllers.js"></script>
@@ -34,9 +34,13 @@
     <!--
       The nav bar that will be updated as we navigate between views.
     -->
-    <ion-nav-bar class="bar-stable" class="padding">
+    <ion-nav-bar class="bar-calm" class="padding">
+
       <ion-nav-back-button>
       </ion-nav-back-button>
+      <ion-nav-buttons side="right">
+        <button class="button button-clear">Welcome <strong>{{name}}</strong></button>
+     </ion-nav-buttons>
     </ion-nav-bar>
     <!--
       The views will be rendered in the <ion-nav-view> directive below

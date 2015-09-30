@@ -18,10 +18,13 @@
 -->
 <ion-view view-title="Classes">
   <ion-content>
-    <label>
-       Search
-       <input  ng-model="searchClass">
-    </label>
+    <div class="bar bar-header item-input-inset">
+  <label class="item-input-wrapper">
+    <i class="icon ion-ios-search placeholder-icon"></i>
+    <input type="search" ng-model="searchClass" placeholder="Search ">
+  </label>
+
+</div>
     <ion-list>
       <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="class in classes | filter:searchClass | orderBy:'title'" type="item-text-wrap" href="#/tab/chats/{{class.id}}">
         <img ng-src="{{class.image}}">

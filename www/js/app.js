@@ -90,17 +90,18 @@ $httpProvider.interceptors.push('TokenInterceptor');//adding an interceptor to o
     }
   })
 
-/*  .state('tab.chats', {
-      url: '/chats',
+//favourites state
+  .state('tab.favourites', {
+      url: '/favourites',
       cache:false,
       views: {
-        'tab-chats': {
-          templateUrl: 'templates/tab-chats.html',
-          controller: 'ChatsCtrl'
+        'tab-favourites': {
+          templateUrl: 'templates/tab-favourites.html',
+          controller: 'ClassCtrl'
         }
       }
     })
-    */
+
     .state('tab.chats', {
           url: '/chats',
           cache:false,
