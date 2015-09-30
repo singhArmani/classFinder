@@ -27,9 +27,43 @@ angular.module('starter.controllers', ['starter.services'])
 })
 
 //classDetail controller
-.controller('ClassDetailCtrl', function($scope, $stateParams, Class,AuthFactory) {
+.controller('ClassDetailCtrl', function($scope,$rootScope,Loader,$stateParams,LSFactory,Class,AuthFactory) {
   console.log($stateParams.classId);
   $scope.classDetail = Class.getById($stateParams.classId);
+
+  //adding to fav
+  $scope.$on('addToFavClass', function(){
+
+  console.log("i am a listener");
+  // Loader.showloading('Adding to favourites..');
+      var userId = AuthFactory.getUser();
+
+      console.log(userId);
+
+      var ref = new Firebase("https://amanchat.firebaseio.com/");
+      ref.child("users").child(userId).child("favClass").set({
+        description: $scope.classDetail.description,
+        id: $scope.classDetail.id,
+        image:$scope.classDetail.image,
+        price:$scope.classDetail.price,
+        title:$scope.classDetail.title
+      });
+
+    /*
+     Class.addToFavClass($scope.classDetail,userId).success(function(data){
+
+      // Loader.hideLoading();
+      // Loader.toggleLoadingWithMessage('successfully added '+$scope.classDetail.title+' to your favourties',2000);
+     }).error(function(err,statusCode){
+    //   Loader.hideLoading();
+      // Loader.toggleLoadingWithMessage(err.message);
+     });
+
+     */
+
+
+   });
+
 
   //adding addToFavClass function on $scope
   $scope.addToFavClass= function(){
@@ -42,7 +76,31 @@ angular.module('starter.controllers', ['starter.services'])
      $scope.$broadcast('addToFavClass'); }//otherwise broadcast
   };
 
+
+
 })
+
+/*
+//AccountCtrl
+.controller('favouritesCtrl',function(){
+
+  //adding to fav
+  $scope.$on('addToFavClass', function(){
+  //  Loader.showloading('Adding to favourites..');
+      var userId = AuthFactory.getUser();
+     Class.addToFavClass($scope.classDetail,userId).success(function(data){
+
+       Loader.hideLoading();
+       Loader.toggleLoadingWithMessage('successfully added '+$scope.classDetail.title+' to your favourties',2000);
+     }).error(function(err,statusCode){
+       Loader.hideLoading();
+       Loader.toggleLoadingWithMessage(err.message);
+     });
+   });
+})
+*/
+
+
 /*
 .controller('ClassDetailCtrl', ['Loader','$stateParams','Class','$scope','$rootScope',function($scope, $stateParams,$rootScope,Class,AuthFactory,Loader,LSFactory) {
   var classId = $stateParams.classId;
@@ -83,7 +141,7 @@ angular.module('starter.controllers', ['starter.services'])
     enableFriends: true
   };
 
-  //doing the logout here 
+  //doing the logout
    $scope.logout= function(){
 var ref = new Firebase("https://amanchat.firebaseio.com/");
      ref.unauth();

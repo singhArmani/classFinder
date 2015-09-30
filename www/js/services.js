@@ -27,12 +27,14 @@ angular.module('starter.services', ['firebase'])
              }
            }
             return null;
-         },
+         }
 
+ /*
          addToFavClass: function(favclass,userId){
              var refFav = new Firebase("https://amanchat.firebaseio.com/users/"+userId+"/favClass");
-            return $firebase(refFav);
+            return $firebaseArray(refFav);
          }
+         */
 
     };
 
