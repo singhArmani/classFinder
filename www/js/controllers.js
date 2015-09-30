@@ -2,27 +2,11 @@ angular.module('starter.controllers', ['starter.services'])
 
 .controller('DashCtrl', function($scope) {})
 
-/*.controller('ChatsCtrl', function($scope, Chats) {
-  // With the new view caching in Ionic, Controllers are only called
-  // when they are recreated or on app start, instead of every page change.
-  // To listen for when this page is active (for example, to refresh data),
-  // listen for the $ionicView.enter event:
-  //
-  //$scope.$on('$ionicView.enter', function(e) {
-  //});
-
-  $scope.chats = Chats.all();
-  $scope.remove = function(chat) {
-    Chats.remove(chat);
-  };
-
-
-})
-*/
+//FavouritesCtrl
 .controller('FavouritesCtrl',function($scope,Class,AuthFactory){
 
   var userId=null;
-
+  $scope.userloggedIn = null;
   //implementing listerner when user logged in
   $scope.$on('GetFavClassesForUser',function(){
   console.log("I am listening for the GetFavClassesForUser");
@@ -33,11 +17,13 @@ angular.module('starter.controllers', ['starter.services'])
 
   //getting the user status
   if(!AuthFactory.isLoggedIn()){
-    console.log("user not logged in "+AuthFactory.getUser());
+    console.log("user not logged in ");
+     $scope.userloggedIn=false;
     //use broadcast on $rootScope for 'showLoginModal'
   }
   else{
     userId= AuthFactory.getUser();
+    $scope.userloggedIn=true;
     console.log("user logIn with userId: "+ AuthFactory.getUser());
     $scope.$broadcast('GetFavClassesForUser'); }//otherwise broadcast
 
@@ -87,7 +73,7 @@ angular.module('starter.controllers', ['starter.services'])
         console.log('Synchronization failed');
       } else {
         Loader.hideLoading();
-        Loader.toggleLoadingWithMessage('Successfully added ' + $scope.classDetail.title + ' to your favourites', 2000);
+        Loader.toggleLoadingWithMessage('Successfully added ' + $scope.classDetail.title + ' to your favourites', 1500);
 
         console.log('Synchronization succeeded');
       }
@@ -100,7 +86,7 @@ angular.module('starter.controllers', ['starter.services'])
         if(favClasses[i].id===$scope.classDetail.id){
           console.log("looprunning");
           Loader.hideLoading();
-          Loader.toggleLoadingWithMessage('Classes Already In Your favourites', 2000);
+          Loader.toggleLoadingWithMessage('Classes Already In Your favourites', 1000);
           console.log("this class already exist");
           favClassexist=true;
            break;
@@ -125,7 +111,8 @@ angular.module('starter.controllers', ['starter.services'])
   //adding addToFavClass function on $scope
   $scope.addToFavClass= function(){
    if(!AuthFactory.isLoggedIn()){
-     console.log("user not logged in "+AuthFactory.getUser());
+     console.log("user not logged in !");
+     Loader.toggleLoadingWithMessage("User not logged in!!",500);
      //use broadcast on $rootScope for 'showLoginModal'
    }
    else{

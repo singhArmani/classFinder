@@ -1,14 +1,15 @@
 <ion-view view-title="Favourites">
   <ion-content>
-    <div class="list card" ng-repeat="favClass in favoritesClasses | orderBy:title">
+    <!--
+    <div ng-show="userloggedIn" class="list card" ng-repeat="favClass in favoritesClasses | orderBy:title">
       <div class =" item item-divider text-center">
-         <h1>{{favClass.title}}</h1>
+         <h3>{{favClass.title}}</h3>
       </div>
 
       <div class="item item-body">
         <p>
            <div class="text-center">
-            <img ng-src="{{favClass.image}}" style="width: 150px; height: 100px;border:2px;">
+            <img ng-src="{{favClass.image}}">
            </div>
 
            <div class="text-left">
@@ -18,5 +19,21 @@
         </p>
       </div>
     </div>
+  -->
+
+    <ion-list ng-show="userloggedIn">
+      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="favClass in favoritesClasses | orderBy:title">
+        <img ng-src="{{favClass.image}}">
+
+        <h2>{{favClass.title}}</h2>
+        <p>Booking Price:{{favClass.price}}</p>
+
+      </ion-item>
+    </ion-list>
+
+  <div ng-show="!userloggedIn" class="ng-hide text-center padding" style="color:red;font-size:20px;font-style:bold;">
+    <strong>User Not Logged In! Please <a href="#/main">Login</a> To See Your Favourites</strong>
+
+  </div>
 </ion-content>
 </ion-view>
