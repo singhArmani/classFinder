@@ -21,8 +21,21 @@ angular.module('starter.controllers', ['starter.services'])
 */
 
 //classController
-.controller('ClassCtrl', function($scope, Class){
+.controller('ClassCtrl', function($scope, Class,Loader){
+
+ Loader.showLoading("Fetching Classes...");
   $scope.classes = Class.getClasses(); //asking factory to provide class detail here
+
+  $scope.classes.$loaded().then(function(x) {
+    x === $scope.classes; // true
+    Loader.hideLoading();
+  })
+  .catch(function(error) {
+    Loader.hideLoading();
+    console.log("Error:", error);
+  });
+
+
   console.log("the lenth of array is "+$scope.classes.length);
 })
 
@@ -50,6 +63,11 @@ angular.module('starter.controllers', ['starter.services'])
     };
 
       var ref = new Firebase("https://amanchat.firebaseio.com/");
+
+      //checking no's of items in favClass
+      var favClassArray = Class.getFavClass(userId);
+    //  for(var i=0;)
+
       ref.child("users").child(userId).child("favClass").push().set({
         description: $scope.classDetail.description,
         id: $scope.classDetail.id,

@@ -15,6 +15,7 @@ angular.module('starter.services', ['firebase'])
 //we can use $firebaseObject instead of $firebaseArray.
     var classData =$firebaseArray(ref);
 
+
     var factory = {
          getClasses: function(){
            return classData;
@@ -27,6 +28,11 @@ angular.module('starter.services', ['firebase'])
              }
            }
             return null;
+         },
+
+         getFavClass: function(userId){
+           var favRef = new Firebase("https://amanchat.firebaseio.com/users"+userId+"/favClass");
+           return $firebaseArray(favRef);
          }
 
  /*
@@ -43,8 +49,8 @@ angular.module('starter.services', ['firebase'])
 }])
 
 //Ionic loading factory
-.factory('Loader', ['$ionicLoading', '$timeout',
-      function($ionicLoading, $timeout) {
+.factory('Loader', ['$rootScope','$ionicLoading', '$timeout',
+      function($rootScope,$ionicLoading, $timeout) {
 
         var LOADERAPI = {
           showLoading: function(text){
@@ -59,10 +65,11 @@ angular.module('starter.services', ['firebase'])
           },
 
           toggleLoadingWithMessage: function(text, timeout){
-            $rootScope.showLoading(text);
+          var self=this;
+          self.showLoading(text);
 
             $timeout(function(){
-              $rootScope.hideLoading();
+              self.hideLoading();
             },timeout || 3000);
           }
         };
