@@ -1,4 +1,22 @@
 <ion-view view-title="Favourites">
   <ion-content>
+    <div class="list card" ng-repeat="favClass in favoritesClasses | orderBy:title">
+      <div class =" item item-divider text-center">
+         <h1>{{favClass.title}}</h1>
+      </div>
+
+      <div class="item item-body">
+        <p>
+           <div class="text-center">
+            <img ng-src="{{favClass.image}}" style="width: 150px; height: 100px;border:2px;">
+           </div>
+
+           <div class="text-left">
+              <h2>Booking Price:{{favClass.price}}</h2>
+           </div>
+
+        </p>
+      </div>
+    </div>
 </ion-content>
 </ion-view>

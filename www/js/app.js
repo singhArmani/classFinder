@@ -97,7 +97,7 @@ $httpProvider.interceptors.push('TokenInterceptor');//adding an interceptor to o
       views: {
         'tab-favourites': {
           templateUrl: 'templates/tab-favourites.html',
-          controller: 'ClassCtrl'
+          controller: 'FavouritesCtrl'
         }
       }
     })

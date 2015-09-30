@@ -19,6 +19,32 @@ angular.module('starter.controllers', ['starter.services'])
 
 })
 */
+.controller('FavouritesCtrl',function($scope,Class,AuthFactory){
+
+  var userId=null;
+
+  //implementing listerner when user logged in
+  $scope.$on('GetFavClassesForUser',function(){
+  console.log("I am listening for the GetFavClassesForUser");
+    //using scope property
+     $scope.favoritesClasses = Class.getFavClass(userId);
+     console.log($scope.favoritesClasses);
+  });
+
+  //getting the user status
+  if(!AuthFactory.isLoggedIn()){
+    console.log("user not logged in "+AuthFactory.getUser());
+    //use broadcast on $rootScope for 'showLoginModal'
+  }
+  else{
+    userId= AuthFactory.getUser();
+    console.log("user logIn with userId: "+ AuthFactory.getUser());
+    $scope.$broadcast('GetFavClassesForUser'); }//otherwise broadcast
+
+
+})
+
+
 
 //classController
 .controller('ClassCtrl', function($scope, Class,Loader){
@@ -49,19 +75,7 @@ angular.module('starter.controllers', ['starter.services'])
   //getting a reference to the fav classes
   var favClasses = Class.getFavClass(userId);
   console.log("the favclass lenght is "+favClasses.length);
-/*
-  //defing the length of favClasses in database
-  var lengthFavClass= null;
 
-  //adding a 'value' change event
-  favRef.on("value", function(snapshot){
-    if(snapshot){
-   lengthFavClass = snapshot.val().length;
-   console.log("value of snapshot is "+snapshot.val());
-     }
-     console.log(lengthFavClass);
-  });
-*/
   //adding listener on our broadcast
   $scope.$on('addToFavClass', function(){
 
@@ -87,7 +101,6 @@ angular.module('starter.controllers', ['starter.services'])
           console.log("looprunning");
           Loader.hideLoading();
           Loader.toggleLoadingWithMessage('Classes Already In Your favourites', 2000);
-
           console.log("this class already exist");
           favClassexist=true;
            break;
