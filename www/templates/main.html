@@ -1,8 +1,11 @@
 <ion-view view-title="CLASS FINDER" >
   <ion-content class="padding">
+    <div class="buttons text-right">
+       <button class="button button-small button-clear" ng-click="lm.skip()"><strong>Skip</strong></button>
+    </div>
     <div class="padding text-center">
       <h1 style="font-size:34px; color:orange;">Welcome To Class Finder</h1>
-      <h3>Please login or Register</h3>
+      <h3>Please login or Register </h3>
     </div>
     <div  style="color:red;font-size:14px;font-style:italic;">
       <span>{{lm.loginError}}</span>
@@ -24,7 +27,7 @@
    <div class="padding">
      <button ui-sref="register" class="button button-block button-calm">Sign Up
     </div>
-   
+
 </div>
 </ion-content>
 </ion-view>

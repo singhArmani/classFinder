@@ -8,7 +8,7 @@ angular.module('starter.services', ['firebase'])
 ])
 
 //class factory
-.factory('Class',['$firebaseArray',function($firebaseArray){
+.factory('Class',['$firebaseArray','AuthFactory',function($firebaseArray,AuthFactory){
     var ref = new Firebase("https://amanchat.firebaseio.com/class");
 
 //downloading server data into local sync object via $firebaseArray;
@@ -27,7 +27,13 @@ angular.module('starter.services', ['firebase'])
              }
            }
             return null;
+         },
+
+         addToFavClass: function(favclass,userId){
+             var refFav = new Firebase("https://amanchat.firebaseio.com/users/"+userId+"/favClass");
+            return $firebase(refFav);
          }
+
     };
 
     return factory;//returning the factory object

@@ -26,19 +26,52 @@ angular.module('starter.controllers', ['starter.services'])
   console.log("the lenth of array is "+$scope.classes.length);
 })
 
-.controller('ClassDetailCtrl', function($scope, $stateParams, Class,Loader) {
-  var classId = $stateParams.classId;
+//classDetail controller
+.controller('ClassDetailCtrl', function($scope, $stateParams, Class) {
+  console.log($stateParams.classId);
   $scope.classDetail = Class.getById($stateParams.classId);
 
-
-
 })
+/*
+.controller('ClassDetailCtrl', ['Loader','$stateParams','Class','$scope','$rootScope',function($scope, $stateParams,$rootScope,Class,AuthFactory,Loader,LSFactory) {
+  var classId = $stateParams.classId;
+  $scope.classDetail = Class.getById(classId);
+
+  //adding to fav
+  $scope.$on('addToFavClass', function(){
+    Loader.showloading('Adding to favourites..');
+      var userId = AuthFactory.getUser();
+     Class.addToFavClass($scope.classDetail,userId).success(function(data){
+
+       Loader.hideLoading();
+       Loader.toggleLoadingWithMessage('successfully added '+$scope.classDetail.title+' to your favourties',2000);
+     }).error(function(err,statusCode){
+       Loader.hideLoading();
+       Loader.toggleLoadingWithMessage(err.message);
+     });
+   });
+
+     //adding addToFavClass function on $scope
+     $scope.addToFavClass= function(){
+      if(!AuthFactory.isLoggedIn()){
+        console.log("user not logged in");
+        //use broadcast on $rootScope for 'showLoginModal'
+      }
+      else{
+        console.log("user logIn with userId: "+ AuthFactory.getUser());
+        $scope.$broadcast('addToFavClass'); }//otherwise broadcast
+     };
 
 
-.controller('AccountCtrl', function($scope) {
+}])
+
+*/
+//AccountCtrl
+.controller('AccountCtrl', function($scope,$state) {
   $scope.settings = {
     enableFriends: true
   };
+
 })
 
 
@@ -63,12 +96,23 @@ angular.module('starter.controllers', ['starter.services'])
            } else {
             Loader.hideLoading();
    console.log("Authenticated successfully with payload:", authData);
-      $rootScope.name= authData.password.email;
+          //getting and saving that into our model
+          $rootScope.name= authData.password.email;
+
+          //setting our user using AuthFactory method
+    //      AuthFactory.setUser(authData.uid);
+
+          //setting the token here too
+  //      AuthFactory.setToken(authData.token);
+
        $state.go('tab.dash');
 
    }
      });
   };
+  lm.skip= function(){
+    $state.go('tab.dash');
+  }
 
 
 }])
