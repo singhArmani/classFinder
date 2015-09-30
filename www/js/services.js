@@ -31,8 +31,9 @@ angular.module('starter.services', ['firebase'])
          },
 
          getFavClass: function(userId){
-           var favRef = new Firebase("https://amanchat.firebaseio.com/users"+userId+"/favClass");
-           return $firebaseArray(favRef);
+           var favRef = new Firebase("https://amanchat.firebaseio.com/users/"+userId+"/favClass");
+            var favClasses= $firebaseArray(favRef);
+            return favClasses;
          }
 
  /*

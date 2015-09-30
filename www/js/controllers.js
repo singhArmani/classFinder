@@ -25,7 +25,7 @@ angular.module('starter.controllers', ['starter.services'])
 
  Loader.showLoading("Fetching Classes...");
   $scope.classes = Class.getClasses(); //asking factory to provide class detail here
-
+ console.log($scope.classes);
   $scope.classes.$loaded().then(function(x) {
     x === $scope.classes; // true
     Loader.hideLoading();
@@ -44,13 +44,30 @@ angular.module('starter.controllers', ['starter.services'])
   console.log($stateParams.classId);
   $scope.classDetail = Class.getById($stateParams.classId);
 
-  //adding to fav
-  $scope.$on('addToFavClass', function(){
-  Loader.showLoading('Adding to Cart..');
-  console.log("i am a listener");
-  // Loader.showloading('Adding to favourites..');
-      var userId = AuthFactory.getUser();
+  var userId = AuthFactory.getUser();
 
+  //getting a reference to the fav classes
+  var favClasses = Class.getFavClass(userId);
+  console.log("the favclass lenght is "+favClasses.length);
+/*
+  //defing the length of favClasses in database
+  var lengthFavClass= null;
+
+  //adding a 'value' change event
+  favRef.on("value", function(snapshot){
+    if(snapshot){
+   lengthFavClass = snapshot.val().length;
+   console.log("value of snapshot is "+snapshot.val());
+     }
+     console.log(lengthFavClass);
+  });
+*/
+  //adding listener on our broadcast
+  $scope.$on('addToFavClass', function(){
+
+  Loader.showLoading('Adding to favourites..');
+
+//call back method upon successfully added to favourites
       var onComplete = function(error) {
       if (error) {
         console.log('Synchronization failed');
@@ -61,34 +78,33 @@ angular.module('starter.controllers', ['starter.services'])
         console.log('Synchronization succeeded');
       }
     };
+//callback method finish
 
-      var ref = new Firebase("https://amanchat.firebaseio.com/");
+      var favClassexist = false;
 
-      //checking no's of items in favClass
-      var favClassArray = Class.getFavClass(userId);
-    //  for(var i=0;)
+      for(var i=0;i<favClasses.length;i++){
+        if(favClasses[i].id===$scope.classDetail.id){
+          console.log("looprunning");
+          Loader.hideLoading();
+          Loader.toggleLoadingWithMessage('Classes Already In Your favourites', 2000);
 
-      ref.child("users").child(userId).child("favClass").push().set({
+          console.log("this class already exist");
+          favClassexist=true;
+           break;
+        }
+      }
+
+      //setting only when there's no duplicacy
+    var favRef = new Firebase("https://amanchat.firebaseio.com/users/"+userId+"/favClass");
+     if(!favClassexist){
+      favRef.push().set({
         description: $scope.classDetail.description,
         id: $scope.classDetail.id,
         image:$scope.classDetail.image,
         price:$scope.classDetail.price,
         title:$scope.classDetail.title
       },onComplete);
-
-
-    /*
-     Class.addToFavClass($scope.classDetail,userId).success(function(data){
-
-      // Loader.hideLoading();
-      // Loader.toggleLoadingWithMessage('successfully added '+$scope.classDetail.title+' to your favourties',2000);
-     }).error(function(err,statusCode){
-    //   Loader.hideLoading();
-      // Loader.toggleLoadingWithMessage(err.message);
-     });
-
-     */
-
+      }
 
    });
 
@@ -108,61 +124,7 @@ angular.module('starter.controllers', ['starter.services'])
 
 })
 
-/*
-//AccountCtrl
-.controller('favouritesCtrl',function(){
 
-  //adding to fav
-  $scope.$on('addToFavClass', function(){
-  //  Loader.showloading('Adding to favourites..');
-      var userId = AuthFactory.getUser();
-     Class.addToFavClass($scope.classDetail,userId).success(function(data){
-
-       Loader.hideLoading();
-       Loader.toggleLoadingWithMessage('successfully added '+$scope.classDetail.title+' to your favourties',2000);
-     }).error(function(err,statusCode){
-       Loader.hideLoading();
-       Loader.toggleLoadingWithMessage(err.message);
-     });
-   });
-})
-*/
-
-
-/*
-.controller('ClassDetailCtrl', ['Loader','$stateParams','Class','$scope','$rootScope',function($scope, $stateParams,$rootScope,Class,AuthFactory,Loader,LSFactory) {
-  var classId = $stateParams.classId;
-  $scope.classDetail = Class.getById(classId);
-
-  //adding to fav
-  $scope.$on('addToFavClass', function(){
-    Loader.showloading('Adding to favourites..');
-      var userId = AuthFactory.getUser();
-     Class.addToFavClass($scope.classDetail,userId).success(function(data){
-
-       Loader.hideLoading();
-       Loader.toggleLoadingWithMessage('successfully added '+$scope.classDetail.title+' to your favourties',2000);
-     }).error(function(err,statusCode){
-       Loader.hideLoading();
-       Loader.toggleLoadingWithMessage(err.message);
-     });
-   });
-
-     //adding addToFavClass function on $scope
-     $scope.addToFavClass= function(){
-      if(!AuthFactory.isLoggedIn()){
-        console.log("user not logged in");
-        //use broadcast on $rootScope for 'showLoginModal'
-      }
-      else{
-        console.log("user logIn with userId: "+ AuthFactory.getUser());
-        $scope.$broadcast('addToFavClass'); }//otherwise broadcast
-     };
-
-
-}])
-
-*/
 //AccountCtrl
 .controller('AccountCtrl', function($scope,$state,AuthFactory) {
   $scope.settings = {
