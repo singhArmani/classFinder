@@ -33,21 +33,31 @@ angular.module('starter.controllers', ['starter.services'])
 
   //adding to fav
   $scope.$on('addToFavClass', function(){
-
+  Loader.showLoading('Adding to Cart..');
   console.log("i am a listener");
   // Loader.showloading('Adding to favourites..');
       var userId = AuthFactory.getUser();
 
-      console.log(userId);
+      var onComplete = function(error) {
+      if (error) {
+        console.log('Synchronization failed');
+      } else {
+        Loader.hideLoading();
+        Loader.toggleLoadingWithMessage('Successfully added ' + $scope.classDetail.title + ' to your favourites', 2000);
+
+        console.log('Synchronization succeeded');
+      }
+    };
 
       var ref = new Firebase("https://amanchat.firebaseio.com/");
-      ref.child("users").child(userId).child("favClass").set({
+      ref.child("users").child(userId).child("favClass").push().set({
         description: $scope.classDetail.description,
         id: $scope.classDetail.id,
         image:$scope.classDetail.image,
         price:$scope.classDetail.price,
         title:$scope.classDetail.title
-      });
+      },onComplete);
+
 
     /*
      Class.addToFavClass($scope.classDetail,userId).success(function(data){
