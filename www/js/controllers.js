@@ -27,9 +27,20 @@ angular.module('starter.controllers', ['starter.services'])
 })
 
 //classDetail controller
-.controller('ClassDetailCtrl', function($scope, $stateParams, Class) {
+.controller('ClassDetailCtrl', function($scope, $stateParams, Class,AuthFactory) {
   console.log($stateParams.classId);
   $scope.classDetail = Class.getById($stateParams.classId);
+
+  //adding addToFavClass function on $scope
+  $scope.addToFavClass= function(){
+   if(!AuthFactory.isLoggedIn()){
+     console.log("user not logged in "+AuthFactory.getUser());
+     //use broadcast on $rootScope for 'showLoginModal'
+   }
+   else{
+     console.log("user logIn with userId: "+ AuthFactory.getUser());
+     $scope.$broadcast('addToFavClass'); }//otherwise broadcast
+  };
 
 })
 /*
@@ -67,11 +78,18 @@ angular.module('starter.controllers', ['starter.services'])
 
 */
 //AccountCtrl
-.controller('AccountCtrl', function($scope,$state) {
+.controller('AccountCtrl', function($scope,$state,AuthFactory) {
   $scope.settings = {
     enableFriends: true
   };
 
+  //doing the logout here 
+   $scope.logout= function(){
+var ref = new Firebase("https://amanchat.firebaseio.com/");
+     ref.unauth();
+     AuthFactory.deleteAuth();
+     $state.go('main');
+   };
 })
 
 
@@ -100,10 +118,10 @@ angular.module('starter.controllers', ['starter.services'])
           $rootScope.name= authData.password.email;
 
           //setting our user using AuthFactory method
-    //      AuthFactory.setUser(authData.uid);
+       AuthFactory.setUser(authData.uid);
 
           //setting the token here too
-  //      AuthFactory.setToken(authData.token);
+       AuthFactory.setToken(authData.token);
 
        $state.go('tab.dash');
 
