@@ -154,7 +154,61 @@ al.userId= AuthFactory.getUser();
 })
 
 //AccountDetailCtrl
-.controller('AccountDetailCtrl',function($scope,Loader,AuthFactory){
+.controller('AccountDetailCtrl',function($scope,Loader,AuthFactory,$firebaseArray){
+
+var adl = this;
+
+
+  var refClass = new Firebase("https://amanchat.firebaseio.com/class");
+  var totalClasses = $firebaseArray(refClass);
+  console.log(totalClasses);
+
+  //grabbing data from input field
+
+  //starts----->
+  adl.addClass= function()
+  {
+  Loader.showLoading('Adding Classes..');
+
+//call back method upon successfully added to favourites
+      var onComplete = function(error) {
+      if (error) {
+        console.log('Synchronization failed');
+      } else {
+        Loader.hideLoading();
+        Loader.toggleLoadingWithMessage('Successfully added ', 1500);
+
+        console.log('Synchronization succeeded');
+      }
+    };
+//callback method finish
+
+      var favClassexist = false;
+
+      for(var i=0;i<totalClasses.length;i++){
+        if(adl.classId===totalClasses[i].id){
+          console.log("looprunning");
+          Loader.hideLoading();
+          Loader.toggleLoadingWithMessage('Classes With id '+adl.classId+' Already Exist ', 1000);
+          console.log("this class already exist");
+          favClassexist=true;
+           break;
+        }
+      }
+
+      //setting only when there's no duplicacy
+     if(!favClassexist){
+      refClass.push().set({
+        description: adl.classDescription,
+        id: adl.classId,
+        image:adl.classImage,
+        price:adl.classBookingPrice,
+        title:adl.classTitle
+      },onComplete);
+      }
+  };
+
+  //ends--->
 
 
 })

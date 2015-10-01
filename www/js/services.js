@@ -36,13 +36,6 @@ angular.module('starter.services', ['firebase'])
             return favClasses;
          }
 
- /*
-         addToFavClass: function(favclass,userId){
-             var refFav = new Firebase("https://amanchat.firebaseio.com/users/"+userId+"/favClass");
-            return $firebaseArray(refFav);
-         }
-         */
-
     };
 
     return factory;//returning the factory object

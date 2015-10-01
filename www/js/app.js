@@ -148,7 +148,7 @@ $httpProvider.interceptors.push('TokenInterceptor');//adding an interceptor to o
     views: {
       'tab-account': {
         templateUrl: 'templates/account-detail.html',
-        controller: 'AccountDetailCtrl'
+        controller: 'AccountDetailCtrl as adl'
       }
     }
   });

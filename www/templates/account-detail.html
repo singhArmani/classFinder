@@ -3,25 +3,31 @@
     <div class ="list" >
      <label class="item item-input">
         <span class="input-label">Class-Title</span>
-        <input type="text" ng-model="classTitle">
+        <input type="text" ng-model="adl.classTitle">
      </label>
      <label class="item item-input">
         <span class="input-label">Class-Id</span>
-        <input type="number" ng-model="classId">
+        <input type="number" ng-model="adl.classId">
      </label>
+
+    <label class="item item-input">
+       <span class="input-label">Class-Price</span>
+       <input type="number" ng-model="adl.classBookingPrice">
+    </label>
+
 
      <label class="item item-input">
         <span class="input-label">Class-Image-Link</span>
-        <input type="text" ng-model="classImage">
+        <input type="text" ng-model="adl.classImage">
      </label>
 
      <label class="item item-input">
         <span class="input-label">Class-Description</span>
-        <input type="text" ng-model="classDescription">
+        <input type="text" ng-model="adl.classDescription">
      </label>
 
      <div class="padding">
-        <button  ng-click="addClass()" ng-disabled="!classTitle || !classId" class="button button-block button-balanced">Add Class
+        <button  ng-click="adl.addClass()" ng-disabled="!adl.classTitle || !adl.classId" class="button button-block button-balanced">Add Class
         </button>
      </div>
      <!--Sign up button
