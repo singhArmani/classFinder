@@ -129,21 +129,18 @@ angular.module('starter.controllers', ['starter.services'])
 .controller('AccountCtrl', function($scope,$state,AuthFactory) {
 
 var al = this;
-
+al.userId= AuthFactory.getUser();
    //getting the user status via AuthFactory
    //getting the user status
    if(!AuthFactory.isLoggedIn()){
      console.log("user not logged in ");
       al.loggedIn=false;
+       console.log(al.userId);
      //use broadcast on $rootScope for 'showLoginModal'
    }
    else{
-     userId= AuthFactory.getUser();
      al.loggedIn=true;
-     console.log("user logIn with userId: "+ AuthFactory.getUser());
-     //$scope.$broadcast('GetFavClassesForUser');
    }
-
 
   //doing the logout
    al.logout= function(){
@@ -152,6 +149,12 @@ var al = this;
      AuthFactory.deleteAuth();
      $state.go('main');
    };
+
+
+})
+
+//AccountDetailCtrl
+.controller('AccountDetailCtrl',function($scope,Loader,AuthFactory){
 
 
 })

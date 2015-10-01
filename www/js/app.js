@@ -141,7 +141,18 @@ $httpProvider.interceptors.push('TokenInterceptor');//adding an interceptor to o
         controller: 'AccountCtrl as al'
       }
     }
+  })
+
+  .state('tab.acount-detail', {
+    url: '/account/:userId',
+    views: {
+      'tab-account': {
+        templateUrl: 'templates/account-detail.html',
+        controller: 'AccountDetailCtrl'
+      }
+    }
   });
+
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/tab/dash');
