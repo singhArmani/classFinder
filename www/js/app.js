@@ -144,6 +144,6 @@ $httpProvider.interceptors.push('TokenInterceptor');//adding an interceptor to o
   });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/main');
+  $urlRouterProvider.otherwise('/tab/dash');
 
 });
