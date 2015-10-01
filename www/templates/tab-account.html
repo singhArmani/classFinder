@@ -1,14 +1,16 @@
 <ion-view view-title="Account">
   <ion-content>
     <ion-list>
-    <ion-toggle  ng-model="settings.enableFriends">
-        Enable Friends
-    </ion-toggle>
-    <div class="buttons padding text-right">
-      <button class="button button-clear" ng-click="logout()">
+
+    <div ng-show="al.loggedIn" class="item buttons padding text-left">
+      <button class="button button-block button-clear" ng-click="al.logout()">
   LogOut
 </button>
-    </div>
+ </div>
+<div ng-show="!al.loggedIn" class="ng-hide item buttons padding align-left  ">
+  <button class="button button-block button-clear" ui-sref="main">login
+</button>
+</div>
     </ion-list>
   </ion-content>
 </ion-view>

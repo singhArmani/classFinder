@@ -127,17 +127,33 @@ angular.module('starter.controllers', ['starter.services'])
 
 //AccountCtrl
 .controller('AccountCtrl', function($scope,$state,AuthFactory) {
-  $scope.settings = {
-    enableFriends: true
-  };
+
+var al = this;
+
+   //getting the user status via AuthFactory
+   //getting the user status
+   if(!AuthFactory.isLoggedIn()){
+     console.log("user not logged in ");
+      al.loggedIn=false;
+     //use broadcast on $rootScope for 'showLoginModal'
+   }
+   else{
+     userId= AuthFactory.getUser();
+     al.loggedIn=true;
+     console.log("user logIn with userId: "+ AuthFactory.getUser());
+     //$scope.$broadcast('GetFavClassesForUser');
+   }
+
 
   //doing the logout
-   $scope.logout= function(){
-var ref = new Firebase("https://amanchat.firebaseio.com/");
+   al.logout= function(){
+    var ref = new Firebase("https://amanchat.firebaseio.com/");
      ref.unauth();
      AuthFactory.deleteAuth();
      $state.go('main');
    };
+
+
 })
 
 
