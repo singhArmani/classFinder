@@ -154,7 +154,7 @@ al.userId= AuthFactory.getUser();
 })
 
 //AccountDetailCtrl
-.controller('AccountDetailCtrl',function($scope,Loader,AuthFactory,$firebaseArray){
+.controller('AccountDetailCtrl',function($scope,$state,Loader,AuthFactory,$firebaseArray){
 
 var adl = this;
 
@@ -177,6 +177,12 @@ var adl = this;
       } else {
         Loader.hideLoading();
         Loader.toggleLoadingWithMessage('Successfully added ', 1500);
+        adl.classImage="";
+        adl.classTitle="";
+        adl.classBookingPrice="";
+        adl.classDescription="";
+        adl.classId="";
+        $state.go('tab.account');
 
         console.log('Synchronization succeeded');
       }
@@ -249,10 +255,11 @@ var adl = this;
    }
      });
   };
+  /*
   lm.skip= function(){
     $state.go('tab.dash');
   }
-
+*/
 
 }])
 

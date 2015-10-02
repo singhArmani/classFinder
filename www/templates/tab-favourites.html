@@ -31,9 +31,10 @@
       </ion-item>
     </ion-list>
 
-  <div ng-show="!userloggedIn" class="ng-hide text-center padding" style="color:red;font-size:20px;font-style:bold;">
-    <strong>User Not Logged In! Please <a href="#/main">Login</a> To See Your Favourites</strong>
+  <ion-item ng-show="!userloggedIn" ui-sref="main" class="ng-hide text-center padding" type="item-text-wrap" style="color:red;font-size:20px;font-style:bold;">
+  <h3>User Not Logged In! <h3>
+    <p>Please Login To See Your Favourites</p>
 
-  </div>
+  </ion-item>
 </ion-content>
 </ion-view>
