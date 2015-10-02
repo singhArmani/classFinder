@@ -19,6 +19,7 @@
      <label class="item item-input">
         <span class="input-label">Class-Image-Link</span>
         <input type="text" ng-model="adl.classImage">
+
      </label>
 
      <label class="item item-input">
@@ -27,7 +28,7 @@
      </label>
 
      <div class="padding">
-        <button  ng-click="adl.addClass()" ng-disabled="!adl.classTitle || !adl.classId" class="button button-block button-balanced">Add Class
+        <button  ng-click="adl.addClass()" ng-disabled="!adl.classTitle || !adl.classId || !adl.classImage || !adl.description || !adl.classPrice" class="button button-block button-balanced">Add Class
         </button>
      </div>
      <!--Sign up button
